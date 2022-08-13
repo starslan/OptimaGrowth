@@ -40,11 +40,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.spotify</groupId>-->
-<!--			<artifactId>dockerfile-maven-plugin</artifactId>-->
-<!--			<version>1.4.13</version>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -52,31 +47,36 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.13</version>
-
 				<configuration>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
+					<image>
+						<name>${docker.image.prefix}/${project.artifactId}:v2</name>
+					</image>
 				</configuration>
-
-				<executions>
-					<execution>
-						<id>default</id>
-						<phase>install</phase>
-						<goals>
-							<goal>build</goal>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>com.spotify</groupId>-->
+<!--				<artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--				<version>1.4.13</version>-->
+
+<!--				<configuration>-->
+<!--					<repository>${docker.image.prefix}/${project.artifactId}</repository>-->
+<!--					<tag>${project.version}</tag>-->
+<!--					<buildArgs>-->
+<!--						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>-->
+<!--					</buildArgs>-->
+<!--				</configuration>-->
+
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>default</id>-->
+<!--						<phase>install</phase>-->
+<!--						<goals>-->
+<!--							<goal>build</goal>-->
+<!--							<goal>push</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
