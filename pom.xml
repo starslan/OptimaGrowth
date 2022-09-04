@@ -29,11 +29,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip>
+                    <image>
+                        <name>${docker.image.prefix}/${project.artifactId}</name>
+                    </image>
                 </configuration>
             </plugin>
         </plugins>
