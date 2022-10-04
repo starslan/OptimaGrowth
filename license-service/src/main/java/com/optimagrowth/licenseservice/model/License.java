@@ -23,10 +23,10 @@ public class License {
     @Column(name="organization_id", nullable = false)
     private String organizationId;
 
-    @Column(name="product-name", nullable = false)
+    @Column(name="product_name", nullable = false)
     private String productName;
 
-    @Column(name="license-type", nullable = false)
+    @Column(name="license_type", nullable = false)
     private String licenseType;
 
     @Column(name="comment")
