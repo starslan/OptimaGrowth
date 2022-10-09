@@ -22,6 +22,7 @@ services:
       retries: 5
   configserver:
     image: configserver:0.0.1-SNAPSHOT
+    build: ../configserver
     ports:
       - "8071:8071"
     environment:
@@ -32,6 +33,7 @@ services:
           - "configserver"
   license-service:
     image: ostok/license-service:v2
+    build: ../license-service
     environment:
       PROFILE: "dev"
       CONFIGSERVER_URI: "http://configserver:8071"
