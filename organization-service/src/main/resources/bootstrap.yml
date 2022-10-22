@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: organization-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+#      uri: http://configserver:8071
+      uri: http://localhost:8071
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
