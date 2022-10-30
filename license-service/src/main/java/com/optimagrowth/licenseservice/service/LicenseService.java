@@ -5,6 +5,7 @@ import com.optimagrowth.licenseservice.model.License;
 import com.optimagrowth.licenseservice.model.Organization;
 import com.optimagrowth.licenseservice.repository.LicenseRepository;
 import com.optimagrowth.licenseservice.service.client.OrganizationDiscoveryClient;
+import com.optimagrowth.licenseservice.service.client.OrganizationFeignClient;
 import com.optimagrowth.licenseservice.service.client.OrganizationRestTemplateClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -31,6 +32,9 @@ public class LicenseService {
 
     @Autowired
     OrganizationDiscoveryClient organizationDiscoveryClient;
+
+    @Autowired
+    OrganizationFeignClient organizationFeignClient;
 
 
     public License getLicense(String licenseId, String organizationId, String clientType){
@@ -64,6 +68,10 @@ public class LicenseService {
             case "rest":
                 System.out.println("I am using the rest client");
                 organization = organizationRestClient.getOrganization(organizationId);
+                break;
+            case "feign":
+                System.out.println("I am using the feign client");
+                organization = organizationFeignClient.getOrganization(organizationId);
                 break;
         }
 
