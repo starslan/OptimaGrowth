@@ -5,9 +5,11 @@ import com.optimagrowth.licenseservice.model.License;
 import com.optimagrowth.licenseservice.model.Organization;
 import com.optimagrowth.licenseservice.repository.LicenseRepository;
 import com.optimagrowth.licenseservice.service.client.OrganizationDiscoveryClient;
+import com.optimagrowth.licenseservice.service.client.OrganizationRestTemplateClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
 import java.util.UUID;
@@ -23,6 +25,9 @@ public class LicenseService {
 
     @Autowired
     ServiceConfig config;
+
+    @Autowired
+    OrganizationRestTemplateClient organizationRestClient;
 
     @Autowired
     OrganizationDiscoveryClient organizationDiscoveryClient;
@@ -54,6 +59,11 @@ public class LicenseService {
             case "discovery":
                 System.out.println("I am using the discovery client");
                 organization = organizationDiscoveryClient.getOrganization(organizationId);
+                break;
+
+            case "rest":
+                System.out.println("I am using the rest client");
+                organization = organizationRestClient.getOrganization(organizationId);
                 break;
         }
 
