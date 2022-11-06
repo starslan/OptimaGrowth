@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+
 @RestController
 @RequestMapping(value="v1/organization/{organizationId}/license")
 public class LicenseController {
@@ -28,7 +31,7 @@ public class LicenseController {
         return ResponseEntity.ok(license);
     }
 
-    @RequestMapping(value = "/{licenseId}/{clientId}")
+    @RequestMapping(value = "/{licenseId}/{clientId}",method = RequestMethod.GET)
     public License getLicenceWithClient(
             @PathVariable ("organizationId") String organizationId,
             @PathVariable ("licenseId") String licenseId,
@@ -55,6 +58,13 @@ public class LicenseController {
     public ResponseEntity<String> deleteLicense(@PathVariable("licenseId") String licenseId) {
         return ResponseEntity.ok(licenseService.deleteLicense(licenseId));
     }
+
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public ResponseEntity<List<License>> getLicenses(@PathVariable String organizationId) throws TimeoutException {
+
+        return ResponseEntity.ok(licenseService.getLicenses(organizationId));
+    }
+
 
 
 
