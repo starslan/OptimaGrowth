@@ -17,14 +17,14 @@ server:
     port: 8075
 
 
-resilience4j.circuitbreaker:
-    configs:
-        default:
-            minimum-number-of-calls: 2
-            wait-duration-in-open-state: 120s
-            sliding-window-type: COUNT_BASED
-            register-health-indicator: true
-            failure-rate-threshold: 3
-    instances:
-        license-service:
-            baseConfig: default
+#resilience4j.circuitbreaker:
+#    configs:
+#        default:
+#            minimum-number-of-calls: 3
+#            wait-duration-in-open-state: 120s
+#            sliding-window-type: COUNT_BASED
+#            register-health-indicator: true
+#            failure-rate-threshold: 3
+#    instances:
+#        license-service:
+#            baseConfig: default
