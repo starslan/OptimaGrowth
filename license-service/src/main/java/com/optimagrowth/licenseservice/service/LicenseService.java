@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -48,9 +49,9 @@ public class LicenseService {
     private void randomlyRunLong() throws TimeoutException{
         Random random = new Random();
         int randomNum = random.nextInt(3) + 1;
-//        if(randomNum == 3){
+        if(randomNum == 3){
             sleep();
-//        }
+        }
 
     }
 
@@ -132,11 +133,23 @@ public class LicenseService {
     }
 
 
-    @CircuitBreaker(name="licenseService")
+    @CircuitBreaker(name="licenseService", fallbackMethod = "buildBackLicenseList")
     public List<License> getLicenses(String organizationId) throws TimeoutException {
         randomlyRunLong();
 
         return  licenseRepository.findByOrganizationId(organizationId);
+    }
+
+    private List<License> buildBackLicenseList(String organizationId, Throwable t){
+
+        List<License> fallBackList = new ArrayList<>();
+        License license = new License();
+
+        license.setOrganizationId(organizationId);
+        license.setProductName("Sorry no license information currently available");
+        fallBackList.add(license);
+
+        return fallBackList;
     }
 
 
