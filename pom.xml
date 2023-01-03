@@ -24,10 +24,10 @@
 
     <modules>
         <module>configserver</module>
-        <module>gatewayserver</module>
         <module>eurekaserver</module>
         <module>license-service</module>
         <module>organization-service</module>
+        <module>gatewayserver</module>
     </modules>
     <build>
         <plugins>
