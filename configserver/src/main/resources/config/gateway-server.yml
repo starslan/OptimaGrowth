@@ -2,6 +2,9 @@ server:
   port: 8072
 management:
   endpoint:
+    gateway:
+      enabled: true
+  endpoints:
     web:
       exposure:
         include: "*"
@@ -9,19 +12,19 @@ spring:
   cloud:
     loadbalancer.ribbon.enabled: false
     gateway:
-#      routes:
-#        - id: organization-service
-#          uri: lb://organization-service
-#          predicates:
-#            - Path=/organization/**
-#          filters:
-#            - RewritePath=/organization/(?<path>.*), /$\{path}
-#        - id: licensing-service
-#          uri: lb://licensing-service
-#          predicates:
-#            - Path=/license/**
-#          filters:
-#            - RewritePath=/license/(?<path>.*), /$\{path}
+      routes:
+        - id: organization-service
+          uri: lb://organization-service
+          predicates:
+            - Path=/organization/**
+          filters:
+            - RewritePath=/organization/(?<path>.*), /$\{path}
+        - id: licensing-service
+          uri: lb://licensing-service
+          predicates:
+            - Path=/license/**
+          filters:
+            - RewritePath=/license/(?<path>.*), /$\{path}
       discovery:
         locator:
           enabled: true
@@ -30,7 +33,6 @@ spring:
 eureka:
   instance:
     preferIpAddress: true
-    leaseRenewalIntervalInSeconds: 30
   client:
     registerWithEureka: true
     fetchRegistry: true

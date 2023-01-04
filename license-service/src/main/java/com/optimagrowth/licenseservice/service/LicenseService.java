@@ -134,8 +134,8 @@ public class LicenseService {
     }
 
 
-    @CircuitBreaker(name="licenseService", fallbackMethod = "buildBackLicenseList")
-    @Bulkhead(name="bulkheadLicenseService", fallbackMethod = "buildBackLicenseList")
+//    @CircuitBreaker(name="licenseService", fallbackMethod = "buildBackLicenseList")
+//    @Bulkhead(name="bulkheadLicenseService", fallbackMethod = "buildBackLicenseList")
     public List<License> getLicenses(String organizationId) throws TimeoutException {
 //        randomlyRunLong();
 
