@@ -42,8 +42,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
 
-    @Bean
-    public KeycloakConfigResolver KeycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
-    }
+//    @Bean
+//    public KeycloakConfigResolver KeycloakConfigResolver() {
+//        return new KeycloakSpringBootConfigResolver();
+//    }
 }

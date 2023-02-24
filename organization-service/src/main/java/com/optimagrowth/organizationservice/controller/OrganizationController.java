@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 
 
 @RestController
@@ -22,32 +23,37 @@ public class OrganizationController {
     @Autowired
     private OrganizationService service;
 
+    @RolesAllowed({"USER_", "ADMIN_"})
     @RequestMapping(value="/organization_test",method = RequestMethod.GET)
     public ResponseEntity<String> getTest( ) {
         return ResponseEntity.ok("Hello");
     }
 
 
+    @RolesAllowed({"USER_", "ADMIN_"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId) {
         return ResponseEntity.ok(service.findById(organizationId));
     }
 
+    @RolesAllowed({"USER_", "ADMIN_"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.PUT)
     public void updateOrganization( @PathVariable("organizationId") String id, @RequestBody Organization organization) {
         service.update(organization);
     }
 
+    @RolesAllowed({"USER_", "ADMIN_"})
     @PostMapping
     public ResponseEntity<Organization>  saveOrganization(@RequestBody Organization organization) {
         System.out.println(organization);
         return ResponseEntity.ok(service.create(organization));
     }
 
+    @RolesAllowed({"ADMIN_"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganization( @PathVariable("id") String id,  @RequestBody Organization organization) {
-        service.delete(organization);
+    public void deleteOrganization( @PathVariable("organizationId") String organizationId) {
+        service.delete(organizationId);
     }
 
 
