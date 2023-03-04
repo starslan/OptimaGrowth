@@ -24,19 +24,20 @@ public class LicenseServiceApplication {
 		SpringApplication.run(LicenseServiceApplication.class, args);
 	}
 
-	@LoadBalanced
-	@Bean
-	public RestTemplate getRestTemplate(){
-		RestTemplate template = new RestTemplate();
-		List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
-		if (interceptors==null){
-			template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
-		}else{
-			interceptors.add(new UserContextInterceptor());
-			template.setInterceptors(interceptors);
-		}
-
-		return template;
-	}
+//	@SuppressWarnings("unchecked")
+//	@LoadBalanced
+//	@Bean
+//	public RestTemplate getRestTemplate(){
+//		RestTemplate template = new RestTemplate();
+//		List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
+//		if (interceptors==null){
+//			template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
+//		}else{
+//			interceptors.add(new UserContextInterceptor());
+//			template.setInterceptors(interceptors);
+//		}
+//
+//		return template;
+//	}
 
 }
