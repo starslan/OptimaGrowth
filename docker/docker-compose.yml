@@ -117,6 +117,62 @@ services:
       backend:
         aliases:
           - "keycloak"
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - 2181:2181
+    networks:
+      backend:
+        aliases:
+          - "zookeeper"
+
+  kafkaserver:
+    image: wurstmeister/kafka:latest
+    ports:
+      - 9092:9092
+      - 29094:29094
+    environment:
+        KAFKA_ADVERTISED_HOST_NAME: kafka
+        KAFKA_ADVERTISED_PORT: 9092
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_CREATE_TOPICS: dresses:1:1,ratings:1:1
+        KAFKA_LISTENERS: LISTENER_BOB://0.0.0.0:29092,LISTENER_FRED://0.0.0.0:9092
+        KAFKA_ADVERTISED_LISTENERS: LISTENER_BOB://kafka:29092,LISTENER_FRED://localhost:9092
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_BOB:PLAINTEXT,LISTENER_FRED:PLAINTEXT
+        KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_BOB
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    depends_on:
+      - zookeeper
+    networks:
+      backend:
+        aliases:
+          - "kafka"
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    networks:
+      backend:
+        aliases:
+          - "kafdrop"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:2902"
+    depends_on:
+      - "kafkaserver"
+
+  redisserver:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      backend:
+        aliases:
+          - "redis"
 networks:
   backend:
     driver: bridge
