@@ -2,6 +2,7 @@ package com.optimagrowth.organizationservice.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class KafkaConfig {
 
     private final KafkaProperties kafkaProperties;
+
+    @Value("${topic.name}")
+    private String topicName;
 
     @Autowired
     public KafkaConfig(KafkaProperties kafkaProperties) {
@@ -40,7 +44,7 @@ public class KafkaConfig {
     @Bean
     public NewTopic topic() {
         return TopicBuilder
-                .name("t.food.order")
+                .name(topicName)
                 .partitions(1)
                 .replicas(1)
                 .build();
