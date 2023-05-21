@@ -78,7 +78,7 @@ public class LicenseService {
             license.setOrganizationName(organization.getName());
             license.setContactEmail(organization.getContactEmail());
             license.setContactName(organization.getContactName());
-            license.setContactPhone(organization.getContactName());
+            license.setContactPhone(organization.getContactPhone());
         }
 
         return license.withComment(config.getProperty());
